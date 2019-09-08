@@ -69,7 +69,7 @@ namespace Ferias.entities
 
         public double MediaHoraExtra75()
         {
-            return Hora * HoraExtra75 / 12.0 * 0.75 + Hora * HoraExtra75 / 12.0;
+            return Hora * HoraExtra75 / 12.0 * 1.75 ;
         }
 
         public double MediaUm3HoraExtra75()
@@ -79,7 +79,7 @@ namespace Ferias.entities
 
         public double MediaHoraExtra100()
         {
-            return Hora * HoraExtra100 / 12.0 * 1 + Hora * HoraExtra100 / 12.0;
+            return Hora * HoraExtra100 / 12.0 * 2.0;
         }
 
         public double MediaUm3HoraExtra100()
