@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Text;
 
-namespace Ferias
+namespace Ferias.entities
 {
     class DemonstrativoDeFerias
     {
