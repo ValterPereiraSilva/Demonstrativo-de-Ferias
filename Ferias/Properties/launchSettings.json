@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Ferias": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}
