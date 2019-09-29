@@ -262,14 +262,14 @@ namespace Ferias.entities
             if (AliquotaInss() == 0)
             { sb.AppendLine(" " + Funcionario + " Alíquota do INSS é: Fixa"); }
             else
-            { sb.AppendLine(" " + Funcionario + " Alíquota do INSS é: " + AliquotaInss() + "%"); }
+            { sb.AppendLine(" " + Funcionario + " Alíquota do INSS é: " + AliquotaInss().ToString("F1", CultureInfo.InvariantCulture) + "%"); }
             sb.AppendLine();
             sb.AppendLine(" " + Funcionario + " A Base para Cálculo do IRRF é: R$ " + BaseCalculoIrrf().ToString("F2", CultureInfo.InvariantCulture));
-            sb.AppendLine(" " + Funcionario + " Desconto do IRRF é R$ " + CalculoIrrf().ToString("F2", CultureInfo.InvariantCulture));
+            sb.AppendLine(" " + Funcionario + " O Desconto do IRRF é R$ " + CalculoIrrf().ToString("F2", CultureInfo.InvariantCulture));
             if (AliquotaIrrf() == 0)
             { sb.AppendLine(" " + Funcionario + " Alíquota do IRRF é: Isento"); }
             else
-            { sb.AppendLine(" " + Funcionario + " Alíquota do IRRF é " + AliquotaIrrf() + "%"); }
+            { sb.AppendLine(" " + Funcionario + " Alíquota do IRRF é " + AliquotaIrrf().ToString("F1", CultureInfo.InvariantCulture) + "%"); }
             sb.AppendLine();
             sb.AppendLine(" " + Funcionario + " Total dos Vencimentos é: R$ " + Vencimentos().ToString("F2", CultureInfo.InvariantCulture));
             sb.AppendLine(" " + Funcionario + " Total dos Descontos é: R$ " + Descontos().ToString("F2", CultureInfo.InvariantCulture));

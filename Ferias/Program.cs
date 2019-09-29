@@ -19,8 +19,8 @@ namespace Ferias
             try
             {
                 DemonstrativoDeFerias calculo;
-
-                Console.Write(" Digite o Nome do Funcionário: ");
+                
+                Console.Write(" Digite O Nome do Funcionário: ");
                 string funcionario = Console.ReadLine();
                 Console.Write(" " + funcionario + " Quanto Você Ganha Por Hora: R$ ");
                 hora = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
