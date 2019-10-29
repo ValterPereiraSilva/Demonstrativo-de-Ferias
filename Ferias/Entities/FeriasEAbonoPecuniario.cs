@@ -13,12 +13,38 @@ namespace Ferias.entities
         public double Adicional { get; set; }
         public int Dependente { get; set; }
         public double Hora { get; set; }
+        public double Faltas { get; set; }
 
         public DemonstrativoDeFerias()
         {
         }
 
-        public DemonstrativoDeFerias(string funcionario, double ferias, double abonoPecuniario, double horaExtra75, double horaExtra100, double adicional, double hora, int dependente)
+        public DemonstrativoDeFerias(string funcionario, double ferias, double abonoPecuniario, double horaExtra75, double horaExtra100, double adicional, int dependente, double hora, double faltas)
+        {
+            Funcionario = funcionario;
+            Ferias = ferias;
+            AbonoPecuniario = abonoPecuniario;
+            HoraExtra75 = horaExtra75;
+            HoraExtra100 = horaExtra100;
+            Adicional = adicional;
+            Dependente = dependente;
+            Hora = hora;
+            Faltas = faltas;
+        }
+
+        public DemonstrativoDeFerias(string funcionario, double ferias, double horaExtra75, double horaExtra100, double adicional, double hora, int dependente, double faltas)
+        {
+            Funcionario = funcionario;
+            Ferias = ferias;
+            HoraExtra75 = horaExtra75;
+            HoraExtra100 = horaExtra100;
+            Adicional = adicional;
+            Hora = hora;
+            Dependente = dependente;
+            Faltas = faltas;
+        }
+
+        public DemonstrativoDeFerias(string funcionario, double ferias, double abonoPecuniario, double horaExtra75, double horaExtra100, double adicional, double hora, int dependente, double faltas)
         {
             Funcionario = funcionario;
             Ferias = ferias;
@@ -28,23 +54,7 @@ namespace Ferias.entities
             Adicional = adicional;
             Hora = hora;
             Dependente = dependente;
-        }
-
-        public DemonstrativoDeFerias(string funcionario, double ferias, double horaExtra75, double horaExtra100, double adicional, double hora, int dependente)
-        {
-            Funcionario = funcionario;
-            Ferias = ferias;
-            HoraExtra75 = horaExtra75;
-            HoraExtra100 = horaExtra100;
-            Adicional = adicional;
-            Hora = hora;
-            Dependente = dependente;
-        }
-
-        public DemonstrativoDeFerias(string funcionario, double ferias, double horaExtra75, double horaExtra100, double adicional, double hora, int dependente, double abonoPecuniario) 
-            : this(funcionario, ferias, horaExtra75, horaExtra100, adicional, hora, dependente)
-        {
-            AbonoPecuniario = abonoPecuniario;
+            Faltas = faltas;
         }
 
         public double CalculoFerias()
@@ -258,7 +268,7 @@ namespace Ferias.entities
                 sb.AppendLine();
             } 
             sb.AppendLine(" " + Funcionario + " A Base de Cálculo do INSS é: R$ " + BaseCalculoInss().ToString("F2", CultureInfo.InvariantCulture));
-            sb.AppendLine(" " + Funcionario + " O Desconto do INSS é: " + CalculoInss().ToString("F2", CultureInfo.InvariantCulture));
+            sb.AppendLine(" " + Funcionario + " O Desconto do INSS é: R$ " + CalculoInss().ToString("F2", CultureInfo.InvariantCulture));
             if (AliquotaInss() == 0)
             { sb.AppendLine(" " + Funcionario + " Alíquota do INSS é: Fixa"); }
             else
@@ -266,7 +276,7 @@ namespace Ferias.entities
             sb.AppendLine();
             sb.AppendLine(" " + Funcionario + " A Base para Cálculo do IRRF é: R$ " + BaseCalculoIrrf().ToString("F2", CultureInfo.InvariantCulture));
             sb.AppendLine(" " + Funcionario + " O Desconto do IRRF é R$ " + CalculoIrrf().ToString("F2", CultureInfo.InvariantCulture));
-            if (AliquotaIrrf() == 0)
+            if (AliquotaIrrf() == 0.0)
             { sb.AppendLine(" " + Funcionario + " Alíquota do IRRF é: Isento"); }
             else
             { sb.AppendLine(" " + Funcionario + " Alíquota do IRRF é " + AliquotaIrrf().ToString("F1", CultureInfo.InvariantCulture) + "%"); }
