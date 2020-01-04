@@ -13,13 +13,12 @@ namespace Ferias.entities
         public double Adicional { get; set; }
         public int Dependente { get; set; }
         public double Hora { get; set; }
-        public double Faltas { get; set; }
 
         public DemonstrativoDeFerias()
         {
         }
 
-        public DemonstrativoDeFerias(string funcionario, double ferias, double abonoPecuniario, double horaExtra75, double horaExtra100, double adicional, int dependente, double hora, double faltas)
+        public DemonstrativoDeFerias(string funcionario, double ferias, double abonoPecuniario, double horaExtra75, double horaExtra100, double adicional, int dependente, double hora)
         {
             Funcionario = funcionario;
             Ferias = ferias;
@@ -29,10 +28,9 @@ namespace Ferias.entities
             Adicional = adicional;
             Dependente = dependente;
             Hora = hora;
-            Faltas = faltas;
         }
 
-        public DemonstrativoDeFerias(string funcionario, double ferias, double horaExtra75, double horaExtra100, double adicional, double hora, int dependente, double faltas)
+        public DemonstrativoDeFerias(string funcionario, double ferias, double horaExtra75, double horaExtra100, double adicional, double hora, int dependente)
         {
             Funcionario = funcionario;
             Ferias = ferias;
@@ -41,10 +39,9 @@ namespace Ferias.entities
             Adicional = adicional;
             Hora = hora;
             Dependente = dependente;
-            Faltas = faltas;
         }
 
-        public DemonstrativoDeFerias(string funcionario, double ferias, double abonoPecuniario, double horaExtra75, double horaExtra100, double adicional, double hora, int dependente, double faltas)
+        public DemonstrativoDeFerias(string funcionario, double ferias, double abonoPecuniario, double horaExtra75, double horaExtra100, double adicional, double hora, int dependente)
         {
             Funcionario = funcionario;
             Ferias = ferias;
@@ -54,12 +51,11 @@ namespace Ferias.entities
             Adicional = adicional;
             Hora = hora;
             Dependente = dependente;
-            Faltas = faltas;
         }
 
         public double CalculoFerias()
         {
-            return Hora * Ferias;
+            return Hora * Ferias + MediaHoraExtra75() + MediaHoraExtra100() + MeidaAdicionalNoturno();
         }
 
         public double CalculoUm3Ferias()
@@ -109,8 +105,7 @@ namespace Ferias.entities
 
         public double BaseCalculoInss()
         {
-            return CalculoFerias() + CalculoUm3Ferias() + MediaHoraExtra75() + MediaUm3HoraExtra75() 
-                + MediaHoraExtra100() + MediaUm3HoraExtra100() + MeidaAdicionalNoturno() + MediaUm3AdicionalNoturno();
+            return CalculoFerias() + CalculoUm3Ferias();
         }
 
         public double CalculoInss()
@@ -213,8 +208,7 @@ namespace Ferias.entities
       
         public double Vencimentos()
         {
-            return CalculoFerias() + CalculoUm3Ferias() + CalculoAbonoPecuniario() + CalculoUm3AbonoPecuniario() + MediaHoraExtra75()
-                + MediaUm3HoraExtra75() + MediaHoraExtra100() + MediaUm3HoraExtra100() + MeidaAdicionalNoturno() + MediaUm3AdicionalNoturno();
+            return CalculoFerias() + CalculoUm3Ferias() + CalculoAbonoPecuniario() + CalculoUm3AbonoPecuniario();
         }
 
         public double Descontos()
@@ -236,7 +230,7 @@ namespace Ferias.entities
         {
             StringBuilder sb = new StringBuilder();
 
-            if (CalculoAbonoPecuniario() == 0.0)
+            if (CalculoAbonoPecuniario() == 0.0 && CalculoUm3AbonoPecuniario() == 0.0)
             {
                 sb.AppendLine(" " + Funcionario + " Suas Férias é: R$ " + CalculoFerias().ToString("F2", CultureInfo.InvariantCulture));
                 sb.AppendLine(" " + Funcionario + " Seu 1/3 de Férias é: R$ " + CalculoUm3Ferias().ToString("F2", CultureInfo.InvariantCulture));
@@ -269,23 +263,23 @@ namespace Ferias.entities
             } 
             sb.AppendLine(" " + Funcionario + " A Base de Cálculo do INSS é: R$ " + BaseCalculoInss().ToString("F2", CultureInfo.InvariantCulture));
             sb.AppendLine(" " + Funcionario + " O Desconto do INSS é: R$ " + CalculoInss().ToString("F2", CultureInfo.InvariantCulture));
-            if (AliquotaInss() == 0)
-            { sb.AppendLine(" " + Funcionario + " Alíquota do INSS é: Fixa"); }
+            if (AliquotaInss() == 0.0)
+            { sb.AppendLine(" " + Funcionario + " A Alíquota do INSS é: Fixa"); }
             else
-            { sb.AppendLine(" " + Funcionario + " Alíquota do INSS é: " + AliquotaInss().ToString("F1", CultureInfo.InvariantCulture) + "%"); }
+            { sb.AppendLine(" " + Funcionario + " A Alíquota do INSS é: " + AliquotaInss().ToString("F1", CultureInfo.InvariantCulture) + "%"); }
             sb.AppendLine();
             sb.AppendLine(" " + Funcionario + " A Base para Cálculo do IRRF é: R$ " + BaseCalculoIrrf().ToString("F2", CultureInfo.InvariantCulture));
-            sb.AppendLine(" " + Funcionario + " O Desconto do IRRF é R$ " + CalculoIrrf().ToString("F2", CultureInfo.InvariantCulture));
+            sb.AppendLine(" " + Funcionario + " O Desconto do IRRF é: R$ " + CalculoIrrf().ToString("F2", CultureInfo.InvariantCulture));
             if (AliquotaIrrf() == 0.0)
-            { sb.AppendLine(" " + Funcionario + " Alíquota do IRRF é: Isento"); }
+            { sb.AppendLine(" " + Funcionario + " A Alíquota do IRRF é: Isento"); }
             else
-            { sb.AppendLine(" " + Funcionario + " Alíquota do IRRF é " + AliquotaIrrf().ToString("F1", CultureInfo.InvariantCulture) + "%"); }
+            { sb.AppendLine(" " + Funcionario + " A Alíquota do IRRF é: " + AliquotaIrrf().ToString("F1", CultureInfo.InvariantCulture) + "%"); }
             sb.AppendLine();
-            sb.AppendLine(" " + Funcionario + " Total dos Vencimentos é: R$ " + Vencimentos().ToString("F2", CultureInfo.InvariantCulture));
-            sb.AppendLine(" " + Funcionario + " Total dos Descontos é: R$ " + Descontos().ToString("F2", CultureInfo.InvariantCulture));
+            sb.AppendLine(" " + Funcionario + " O Total dos Vencimentos é: R$ " + Vencimentos().ToString("F2", CultureInfo.InvariantCulture));
+            sb.AppendLine(" " + Funcionario + " O Total dos Descontos é: R$ " + Descontos().ToString("F2", CultureInfo.InvariantCulture));
             sb.AppendLine();
-            sb.AppendLine(" " + Funcionario + " FGTS de Férias é: R$ " + Fgts().ToString("F2", CultureInfo.InvariantCulture));
-            sb.AppendLine(" " + Funcionario + " Férias Líquida à Receber é: R$ " + LiquidoFerias().ToString("F2", CultureInfo.InvariantCulture));
+            sb.AppendLine(" " + Funcionario + " Seu FGTS de Férias é: R$ " + Fgts().ToString("F2", CultureInfo.InvariantCulture));
+            sb.AppendLine(" " + Funcionario + " Suas Férias Líquida à Receber é: R$ " + LiquidoFerias().ToString("F2", CultureInfo.InvariantCulture));
             return sb.ToString();
         }
     }

@@ -14,7 +14,7 @@ namespace Ferias
         private static double hora;
         private static double abonoPecuniario;
         private static double faltas;
-        private static double calc;
+        private static double Return;
 
         static void Main(string[] args)
         {
@@ -35,41 +35,41 @@ namespace Ferias
 
                     if (faltas < 6)
                     {
-                        calc = 220.00;
+                        Return = 220.00;
                     }
                     else if (faltas < 15)
                     {
-                        calc = 176.00;
+                        Return = 176.00;
                     }
                     else if (faltas < 24)
                     {
-                        calc = 132.00;
+                        Return = 132.00;
                     }
                     else if (faltas < 33)
                     {
-                        calc = 88.00;
+                        Return = 88.00;
                     }
                     else
                     {
-                        throw new System.InvalidProgramException(" " + funcionario + " VOCÊ NÃO TEM DIREITO A FÉRIAS ......");
+                        throw new InvalidProgramException (" " + funcionario + " VOCÊ NÃO TEM DIREITO A FÉRIAS ......");
                     }
                 }
                 else
                 {
-                    calc = 220.00;
+                    Return = 220.00;
                 }
                 Console.Write(" " + funcionario + " Você vai tirar as Férias Completas (s/n)? ");
                 pergunta = char.Parse(Console.ReadLine());
                 if (pergunta == 's' || pergunta == 'S')
                 {
-                    ferias = calc;
-                    calculo = new DemonstrativoDeFerias(funcionario, ferias, horaExtra75, horaExtra100, adicional, hora, dependente, faltas);
+                    ferias = Return;
+                    calculo = new DemonstrativoDeFerias(funcionario, ferias, horaExtra75, horaExtra100, adicional, hora, dependente);
                 }
                 else
                 {
-                    ferias = calc / 3.0 * 2.0;
-                    abonoPecuniario = calc / 3.0;
-                    calculo = new DemonstrativoDeFerias(funcionario, ferias, horaExtra75, horaExtra100, adicional, hora, dependente, abonoPecuniario, faltas);
+                    ferias = Return / 3.0 * 2.0;
+                    abonoPecuniario = Return / 3.0;
+                    calculo = new DemonstrativoDeFerias(funcionario, ferias, horaExtra75, horaExtra100, adicional, hora, dependente, abonoPecuniario);
                 }
                 Console.Write(" " + funcionario + " Você tem Dependentes para Dedução do IRRF (s/n)?: ");
                 pergunta = char.Parse(Console.ReadLine());
@@ -77,11 +77,11 @@ namespace Ferias
                 {
                     Console.Write(" " + funcionario + " Informe quantos Dependentes são: ");
                     dependente = int.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                    calculo = new DemonstrativoDeFerias(funcionario, ferias, abonoPecuniario, horaExtra75, horaExtra100, adicional, hora, dependente, faltas);
+                    calculo = new DemonstrativoDeFerias(funcionario, ferias, abonoPecuniario, horaExtra75, horaExtra100, adicional, hora, dependente);
                 }
                 else
                 {
-                    calculo = new DemonstrativoDeFerias(funcionario, ferias, abonoPecuniario, horaExtra75, horaExtra100, adicional, hora, dependente, faltas);
+                    calculo = new DemonstrativoDeFerias(funcionario, ferias, abonoPecuniario, horaExtra75, horaExtra100, adicional, hora, dependente);
                 }
                 Console.Write(" " + funcionario + " Você Tem Reflexos sobre as Férias (s/n)?: ");
                 pergunta = char.Parse(Console.ReadLine());
@@ -93,7 +93,7 @@ namespace Ferias
                     {
                         Console.Write(" " + funcionario + " Informe quantas Horas Extra à 75% são: ");
                         horaExtra75 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                        calculo = new DemonstrativoDeFerias(funcionario, ferias, abonoPecuniario, horaExtra75, horaExtra100, adicional, hora, dependente, faltas);
+                        calculo = new DemonstrativoDeFerias(funcionario, ferias, abonoPecuniario, horaExtra75, horaExtra100, adicional, hora, dependente);
                     }
                     Console.Write(" " + funcionario + " Você fez Hora Extra à 100% (s/n)?: ");
                     pergunta = char.Parse(Console.ReadLine());
@@ -101,7 +101,7 @@ namespace Ferias
                     {
                         Console.Write(" " + funcionario + " Informe quantas Horas Extra à 100% são: ");
                         horaExtra100 = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                        calculo = new DemonstrativoDeFerias(funcionario, ferias, abonoPecuniario, horaExtra75, horaExtra100, adicional, hora, dependente, faltas);
+                        calculo = new DemonstrativoDeFerias(funcionario, ferias, abonoPecuniario, horaExtra75, horaExtra100, adicional, hora, dependente);
                     }
                     Console.Write(" " + funcionario + " Você fez Hora de Adicional Noturno (s/n)?: ");
                     pergunta = char.Parse(Console.ReadLine());
@@ -109,7 +109,7 @@ namespace Ferias
                     {
                         Console.Write(" " + funcionario + " Informe quantas Horas de Adicional Noturno são: ");
                         adicional = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                        calculo = new DemonstrativoDeFerias(funcionario, ferias, abonoPecuniario, horaExtra75, horaExtra100, adicional, hora, dependente, faltas);
+                        calculo = new DemonstrativoDeFerias(funcionario, ferias, abonoPecuniario, horaExtra75, horaExtra100, adicional, hora, dependente);
                     }
                 }
                 Console.WriteLine();
